@@ -1,0 +1,33 @@
+<html>
+  <head>
+    <title>Test</title>
+    <!-- <script async="false">
+      // console.log(Module["_main"]);
+      var start = Date.now();
+    </script> -->
+    <script src="./lorenz/lorenz.js"></script>
+    <script src="./lorenz_float64array.js"></script>
+    <script>
+      var start = 0;
+
+      function lorenz_js() {
+        console.log("js");
+        start = Date.now();
+        lorenz_attractor(1000, Math.pow(2, 24));
+        console.log(Date.now() - start);
+      }
+      function lorenz_wasm() {
+        console.log("wasm");
+        start = Date.now();
+        Module["_test"]();
+        console.log(Date.now() - start);
+      }
+
+      Module.onRuntimeInitialized = () => {
+        lorenz_wasm();
+        lorenz_js();
+      };
+    </script>
+  </head>
+  <body></body>
+</html>
